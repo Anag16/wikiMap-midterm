@@ -24,6 +24,12 @@ module.exports = (db) => {
 
   router.get('/test', (req, res) => {
     console.log('Welcome to the test page');
-  })
+  });
+
+  router.get('/login', (req, res) => {
+    const templateVars = {};
+    res.render('login', templateVars);
+  });
+
   return router;
 };
