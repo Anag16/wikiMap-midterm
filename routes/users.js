@@ -21,5 +21,9 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.get('/test', (req, res) => {
+    console.log('Welcome to the test page');
+  })
   return router;
 };
