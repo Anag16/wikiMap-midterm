@@ -21,6 +21,7 @@
     "i": "^0.3.6",
     "morgan": "^1.9.1",
     "pg": "^8.5.0",
+    "pg-native": "^3.0.0",
     "sass": "^1.41.1"
   },
   "devDependencies": {
