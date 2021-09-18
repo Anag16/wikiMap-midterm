@@ -31,5 +31,26 @@ module.exports = (db) => {
     res.render('login', templateVars);
   });
 
+  router.post('/login', (req, res) => {
+    if (req.body.email.length === 0 || req.body.password.length === 0){
+      res.status(400);
+      res.send('Incomplete information');
+      // res.render("register", templateVars);
+    }
+    // #TODO: CHECK IF EMAIL IS REGISTERED
+    else if(false){
+      res.status(403);
+      res.send('There is no account associated with that email');
+    } else if (false){
+      // #TODO: CHECK IF PASSWORD IS VALID
+      res.status(403);
+      res.send('Invalid password');
+    }
+    else{
+      // #TODO: SET SESSION AND LOGIN
+        console.log("Data received");
+        console.log(`${req.body.email} : ${req.body.password}`);
+    }
+  })
   return router;
 };
