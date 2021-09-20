@@ -1,5 +1,5 @@
 const express = require("express");
-//const { getAllPinsFromDb } = require("../database");
+const { getAllPinsFromDb } = require("../database");
 const { getMapById, getAllMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
 const router = express.Router();
 
@@ -20,13 +20,13 @@ module.exports = (db) => {
       templateVars.user = req.session.username;
       templateVars.id = req.session.user_id;
     }
-    getAllMaps(db)
-      .then(allMaps => {
-        templateVars.allMaps = allMaps;
-        templateVars.mapName = null;
-        console.log(templateVars);
-        res.render('maps_index', templateVars);
-      });
+    // getAllMaps(db)
+    //   .then(allMaps => {
+    //     templateVars.allMaps = allMaps;
+    //     templateVars.mapName = null;
+    //     console.log(templateVars);
+    //     res.render('maps_index', templateVars);
+    //   });
   });
 
   // GET /maps/:id to view specific map based on map's id.
