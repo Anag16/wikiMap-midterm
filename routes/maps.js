@@ -39,7 +39,16 @@ module.exports = (db, cookieSession) => {
     .then(userMaps => {
       const templateVars = {};
       templateVars.userMaps = userMaps;
+      templateVars.mapOwnerID = req.params.userID; //The owner of the requested maps might not match the logged in user
+      templateVars.userID = req.session.userID;
+      templateVars.email = req.session.email;
+      templateVars.username = req.session.username;
+      templateVars.isMapOwner = false;
+      if(Number(templateVars.mapOwnerID) == templateVars.userID){
+        templateVars.isMapOwner = true;
+      }
       console.log(templateVars);
+      res.render('userMaps', templateVars);
     })
   });
   // GET /maps/:id to view specific map based on map's id.
