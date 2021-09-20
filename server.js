@@ -38,8 +38,6 @@ const mapsRoutes = require("./routes/maps");
 app.use("/users", usersRoutes(db));
 //app.use("/widgets", widgetsRoutes(db));
 app.use("/maps", mapsRoutes(db));
-
-
 // Note: mount other resources here, using the same pattern above
 
 
@@ -47,7 +45,9 @@ app.use("/maps", mapsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+
+    res.render("index");
+
 });
 
 app.listen(PORT, () => {
