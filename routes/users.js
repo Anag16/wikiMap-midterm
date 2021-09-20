@@ -52,31 +52,9 @@ module.exports = (db) => {
       // #TODO: SET SESSION AND LOGIN
         console.log("Data received");
         console.log(`${req.body.email} : ${req.body.password}`);
+        res.redirect('/maps');
     }
   });
-
-  // router.get('/register', (req, res) => {
-  //   const templateVars = {};
-  //   res.render('register', templateVars);
-  // });
-
-  // router.post('/register', (req, res) => {
-  //   if (req.body.email.length === 0 || req.body.password.length === 0 || req.body.username.length === 0){
-  //     res.status(400);
-  //     res.send('Incomplete information');
-  //     // res.render("register", templateVars);
-  //   }
-  //   // #TODO: CHECK IF EMAIL IS NOT ALREADY REGISTERED
-  //   else if(false){
-  //     res.status(403);
-  //     res.send('That email is taken');
-  //   }
-  //   else{
-  //     // #TODO: SET SESSION AND LOGIN
-  //       console.log("Data received");
-  //       console.log(`Email: ${req.body.email} | Username: ${req.body.username} | Password: ${req.body.password}`);
-  //   }
-  // });
 
   // GET /register if no user is logged in. If user is logged in, redirect to /maps.
   router.get('/register', (req, res) => {
