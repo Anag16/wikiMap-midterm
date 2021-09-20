@@ -21,10 +21,14 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "i": "^0.3.6",
+    "is-ci": "^3.0.0",
     "libpq": "^1.8.9",
     "morgan": "^1.9.1",
+    "morgan-body": "^2.6.6",
     "pg": "^8.5.0",
     "pg-native": "^3.0.0",
+    "postgres-interval": "^4.0.0",
+    "safer-buffer": "^2.1.2",
     "sass": "^1.41.1"
   },
   "devDependencies": {
