@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllPinsFromDb } = require("../database");
+//const { getAllPinsFromDb } = require("../database");
 const { getMapById, getAllMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
 const router = express.Router();
 
