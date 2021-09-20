@@ -20,13 +20,13 @@ module.exports = (db) => {
       templateVars.user = req.session.username;
       templateVars.id = req.session.user_id;
     }
-    // getAllMaps(db)
-    //   .then(allMaps => {
-    //     templateVars.allMaps = allMaps;
-    //     templateVars.mapName = null;
-    //     console.log(templateVars);
-    //     res.render('maps_index', templateVars);
-    //   });
+    getAllMaps(db)
+      .then(allMaps => {
+        templateVars.allMaps = allMaps;
+        templateVars.mapName = null;
+        console.log(templateVars);
+        res.render('maps_index', templateVars);
+      });
   });
 
   // GET /maps/:id to view specific map based on map's id.
@@ -113,6 +113,118 @@ module.exports = (db) => {
     }
   });
 
+  // GET /maps/:id/edit page to edit map title.
 
+  router.get("/:id/edit", (req, res) => {
+    const templateVars = {};
+    if (!req.session.user_id) {
+      templateVars.user = null;
+      templateVars.id = null;
+      templateVars.mapName = null;
+      res.statusCode = 401;
+      res.render('401', templateVars);
+    } else {
+      const requestedMapId = req.params.id;
+      getMapById(db, requestedMapId)
+        .then(requestedMap => {
+          templateVars.ownerIsLoggedIn = req.session.user_id === requestedMap.user_id;
+          templateVars.mapEdit = requestedMap.title;
+          templateVars.mapName = null;
+          templateVars.mapID = req.params.id;
+          templateVars.user = req.session.username;
+          templateVars.id = req.session.user_id;
+          res.render('maps_edit', templateVars);
+        });
+    }
+  });
+
+  // Update a map as owner of map only, then redirect back to user's profile.
+
+  router.post("/:id", (req, res) => {
+    const userID = req.session.user_id;
+    const requestedMapId = req.params.id;
+    const mapDetails = {
+      title: req.body.newTitle
+    };
+    updateMap(db, requestedMapId, mapDetails)
+      .then(() => {
+        res.redirect(`/users/${userID}`);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  // Delete a map as owner of map only from user's own profile, then refresh page. Does not delete from db, rather changes 'removed_at' from NULL to Date.
+  router.post("/:id/delete", (req, res) => {
+    const templateVars = {};
+    if (!req.session.user_id) {
+      templateVars.user = null;
+      templateVars.id = null;
+      templateVars.mapName = null;
+      res.statusCode = 401;
+      res.render('401', templateVars);
+    } else {
+      const mapID = req.params.id;
+      const userID = req.session.user_id;
+      deleteMap(db, mapID)
+        .then(dbres => {
+          res.redirect(`/users/${userID}`);
+        })
+        .catch((err) => {
+          console.log("query error", err.stack);
+          res.statusCode = 400;
+          templateVars.message = "Oops, something went wrong.";
+          templateVars.mapName = null;
+          res.render('400', templateVars);
+        });
+    }
+  });
+
+
+
+// Add a new pin to db
+  router.post("/:id/pins", (req, res) => {
+    const templateVars = {};
+    if (!req.session.user_id) {
+      templateVars.user = null;
+      templateVars.id = null;
+      templateVars.mapName = null;
+      res.statusCode = 401;
+      res.render('401', templateVars);
+    } else {
+      templateVars.user = req.session.username;
+      templateVars.id = req.session.user_id;
+      let queryString = `
+        INSERT INTO pins (title, description, image_url, latitude, longitude, created_at, map_id, user_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;
+      `;
+      // req.body = {} from the submit form for new pin
+      let user_id = req.session.user_id;
+      let map_id = req.params.id;
+      let values = req.body;
+      let { title, description, image_url, latitude, longitude } = values;
+
+      console.log("values from .post", values);
+
+      db.query(queryString, [
+        title,
+        description,
+        image_url,
+        parseFloat(latitude),
+        parseFloat(longitude),
+        new Date(),
+        map_id,
+        user_id
+      ])
+        .then((data) => {
+          console.log("data.rows from post", data.rows);
+          return data.rows;
+        })
+        .catch((err) => console.error("query error", err.stack));
+      // console.log([values.title, values.description]);
+      res.redirect(`/maps/${map_id}`);
+    }
+  });
   return router;
 };
