@@ -9,6 +9,5 @@ CREATE TABLE maps (
   latitude FLOAT NOT NULL,
   longitude FLOAT NOT NULL,
   created_at DATE NOT NULL,
-  removed_at DATE DEFAULT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );

@@ -1,6 +1,6 @@
 const express = require("express");
 //const { getAllPinsFromDb } = require("../database");
-const { getMapById, getAllMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
+const { getMapById, getUserMaps, getAllMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
 const router = express.Router();
 
 // how can i use getAllPinsFromDb from the database.js inside router.get
@@ -31,9 +31,16 @@ module.exports = (db, cookieSession) => {
 
   // GET /maps/user/:userID to get all maps from a specific user
   router.get('/user/:userID', (req, res)=> {
-    console.log(`The user visiting this website is ${req.params.userID}`);
-    console.log('Checking session:');
-    console.log(req.session.user_id);
+    //#TODO: Remove debug comments later
+    // console.log(`The user visiting this website is ${req.params.userID}`);
+    // console.log('Checking session:');
+    // console.log(req.session.user_id);
+    getUserMaps(db, req.params.userID)
+    .then(userMaps => {
+      const templateVars = {};
+      templateVars.userMaps = userMaps;
+      console.log(templateVars);
+    })
   });
   // GET /maps/:id to view specific map based on map's id.
   router.get("/:id", (req, res) => {
@@ -121,4 +128,4 @@ module.exports = (db, cookieSession) => {
 
 
   return router;
-};
+}

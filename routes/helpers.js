@@ -36,4 +36,12 @@ const addUser = function(db, user) {
   .then(res => res.rows[0]);
 };
 
-module.exports = { getUserByUsername, getUserByEmail, addUser };
+const getUserMaps = function(db, user) {
+  return db.query(`
+  SELECT title, id
+  FROM maps
+  WHERE maps.user_id = $1`,[user])
+  .then(res => res.rows);
+};
+
+module.exports = { getUserByUsername, getUserByEmail, addUser, getUserMaps};
