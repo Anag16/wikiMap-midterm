@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
-//const { getUserByUsername, getUserByEmail, addUser } = require('./helpers');
+const { getUserByUsername, getUserByEmail, addUser } = require('./helpers');
 
 
 module.exports = (db) => {
