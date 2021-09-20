@@ -10,7 +10,7 @@ const router = express.Router();
 const { getUserByUsername, getUserByEmail, addUser } = require('./helpers');
 
 
-module.exports = (db) => {
+module.exports = (db, cookieSession) => {
   router.get("/", (req, res) => {
     db.query(`SELECT * FROM users;`)
       .then(data => {
@@ -52,7 +52,18 @@ module.exports = (db) => {
       // #TODO: SET SESSION AND LOGIN
         console.log("Data received");
         console.log(`${req.body.email} : ${req.body.password}`);
-        res.redirect('/maps');
+        //Get user id and pass it to users/maps/:userId
+        getUserByEmail(db, req.body.email)
+          .then(existingUser => {
+            if (existingUser) {
+              console.log('User ID found: ' + existingUser.id);
+              req.session.user_id = existingUser.id;
+              res.redirect(`/maps/user/${existingUser.id}`);
+            } else {
+              console.log('User is not registered');
+              res.redirect('/users/login');
+            }
+          });
     }
   });
 

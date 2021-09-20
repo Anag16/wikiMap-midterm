@@ -8,6 +8,7 @@ const express    = require("express");
 const bodyParser = require("body-parser");
 const app        = express();
 const morgan     = require('morgan');
+const cookieSession = require('cookie-session');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -22,6 +23,10 @@ app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['thewikiMapWebsite', 'thewikiMapWebsite2']
+}));
 
 app.use(express.static("public"));
 
@@ -35,9 +40,9 @@ const mapsRoutes = require("./routes/maps");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
+app.use("/users", usersRoutes(db, cookieSession));
 //app.use("/widgets", widgetsRoutes(db));
-app.use("/maps", mapsRoutes(db));
+app.use("/maps", mapsRoutes(db, cookieSession));
 
 
 // Note: mount other resources here, using the same pattern above

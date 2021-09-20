@@ -5,7 +5,7 @@ const router = express.Router();
 
 // how can i use getAllPinsFromDb from the database.js inside router.get
 
-module.exports = (db) => {
+module.exports = (db, cookieSession) => {
   router.get("/", (req, res) => {
     // const pinsData = getAllPinsFromDb().then((result) => {
     //   console.log(result[0]);
@@ -29,6 +29,12 @@ module.exports = (db) => {
       });
   });
 
+  // GET /maps/user/:userID to get all maps from a specific user
+  router.get('/user/:userID', (req, res)=> {
+    console.log(`The user visiting this website is ${req.params.userID}`);
+    console.log('Checking session:');
+    console.log(req.session.user_id);
+  });
   // GET /maps/:id to view specific map based on map's id.
   router.get("/:id", (req, res) => {
     const mapID = req.params.id;
