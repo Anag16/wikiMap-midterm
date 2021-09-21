@@ -38,6 +38,7 @@ const usersRoutes = require("./routes/users");
 //const widgetsRoutes = require("./routes/widgets");
 const mapsRoutes = require("./routes/maps");
 const pinsRoutes = require("./routes/pins");
+const favouritesRoutes = require("./routes/favourites");
 
 
 
@@ -48,7 +49,7 @@ app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 app.use("/pins", pinsRoutes(db));
-
+app.use("/favourites", favouritesRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).

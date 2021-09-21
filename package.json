@@ -29,6 +29,8 @@
     "pg": "^8.5.0",
     "pg-native": "^3.0.0",
     "postgres-interval": "^4.0.0",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.9",
     "safer-buffer": "^2.1.2",
     "sass": "^1.41.1"
   },
