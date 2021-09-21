@@ -124,7 +124,7 @@ module.exports = (db) => {
       const templateVars = {};
       templateVars.userMaps = userMaps;
       templateVars.mapOwnerID = req.params.userID; //The owner of the requested maps might not match the logged in user
-      templateVars.userID = req.session.userID;
+      templateVars.userID = req.session.user_id;
       templateVars.email = req.session.email;
       templateVars.username = req.session.username;
       templateVars.isMapOwner = false;
