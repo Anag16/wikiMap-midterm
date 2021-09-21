@@ -24,7 +24,7 @@ $(() => {
       if (pinOwner === logUser || mapOwner === logUser) {
         const marker = L.marker([obj.latitude, obj.longitude]).addTo(map)
         .bindPopup(`
-        <form method='POST' action="/api/pins/${obj.id}">
+        <form method='POST' action="/pins/${obj.id}">
         <label for="title">Place:</label><br>
         <input id="title" name="title" class="form-control form-control-sm" type="text" value="${obj.title}"><br>
         <label for="description">Description:</label><br>
@@ -38,7 +38,7 @@ $(() => {
             </div>
         </form>
             <div class="col">
-        <form method="POST" action='/api/pins/${obj.id}/delete'>
+        <form method="POST" action='/pins/${obj.id}/delete'>
             <input name="map_id" type="hidden" value='${obj.map_id}'>
             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
             </div>
@@ -62,7 +62,7 @@ $(() => {
     const splitPageURL = pageURL.split('/');
     const mapID = splitPageURL[splitPageURL.length - 1];
   
-    $.get(`/api/pins/${mapID}`, function(result) {
+    $.get(`/pins/${mapID}`, function(result) {
       result.pins.forEach((pinObj) => addPinsFromDb(pinObj));
     });
   

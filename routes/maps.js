@@ -171,7 +171,7 @@ module.exports = (db) => {
     };
     updateMap(db, requestedMapId, mapDetails)
       .then(() => {
-        res.redirect(`/users/${userID}`);
+        res.redirect(`/users/profile/${userID}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
