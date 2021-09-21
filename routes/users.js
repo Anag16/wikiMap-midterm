@@ -52,7 +52,20 @@ module.exports = (db) => {
       // #TODO: SET SESSION AND LOGIN
         console.log("Data received");
         console.log(`${req.body.email} : ${req.body.password}`);
-        res.redirect('/maps');
+        //Get user id and pass it to users/maps/:userId
+        getUserByEmail(db, req.body.email)
+          .then(existingUser => {
+            if (existingUser) {
+              console.log('User ID found: ' + existingUser.id);
+              req.session.userID = existingUser.id;
+              req.session.email = existingUser.email;
+              req.session.username = existingUser.username; 
+              res.redirect(`/maps/user/${existingUser.id}`);
+            } else {
+              console.log('User is not registered');
+              res.redirect('/users/login');
+            }
+          });
     }
   });
 

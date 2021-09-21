@@ -1,6 +1,6 @@
 const express = require("express");
 const { getAllPinsFromDb } = require("../database");
-const { getMapById, getAllMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
+const { getMapById, getAllMaps, getUserMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
 const router = express.Router();
 
 // how can i use getAllPinsFromDb from the database.js inside router.get
@@ -111,6 +111,29 @@ module.exports = (db) => {
             });
         });
     }
+  });
+
+  // GET /maps/user/:userID to get all maps from a specific user
+  router.get('/user/:userID', (req, res)=> {
+    //#TODO: Remove debug comments later
+    // console.log(`The user visiting this website is ${req.params.userID}`);
+    // console.log('Checking session:');
+    // console.log(req.session.user_id);
+    getUserMaps(db, req.params.userID)
+    .then(userMaps => {
+      const templateVars = {};
+      templateVars.userMaps = userMaps;
+      templateVars.mapOwnerID = req.params.userID; //The owner of the requested maps might not match the logged in user
+      templateVars.userID = req.session.userID;
+      templateVars.email = req.session.email;
+      templateVars.username = req.session.username;
+      templateVars.isMapOwner = false;
+      if(Number(templateVars.mapOwnerID) == templateVars.userID){
+        templateVars.isMapOwner = true;
+      }
+      console.log(templateVars);
+      res.render('userMaps', templateVars);
+    })
   });
 
   // GET /maps/:id/edit page to edit map title.

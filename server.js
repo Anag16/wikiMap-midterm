@@ -8,6 +8,7 @@ const express    = require("express");
 const bodyParser = require("body-parser");
 const app        = express();
 const morgan     = require('morgan');
+const cookieSession = require('cookie-session');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -21,6 +22,12 @@ db.connect();
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['thewikiMapWebsite', 'thewikiMapWebsite2']
+}));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
