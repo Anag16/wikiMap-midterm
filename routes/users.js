@@ -152,3 +152,8 @@ module.exports = (db) => {
   return router;
 };
 
+// logout route - This is clear user's session and redirect users to login page
+router.get("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("login");
+});
