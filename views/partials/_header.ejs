@@ -6,13 +6,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
+        <% if (typeof username === 'undefined') {%>
         <a class="nav-item nav-link" href="/users/login">Login</a>
         <a class="nav-item nav-link" href="/users/register">Register</a>
-        <% if (typeof username !== 'undefined'){ %>
-          <a class="nav-item nav-link" href=<%= `/users/profile/${userID}` %>> My Profile</a>
+        <% } %>
+        <% if (typeof username !== 'undefined' ){ %>
+          <a class="nav-item nav-link" href=<%= `/users/profile/${user_id}` %>> My Profile</a>
         <%} %>
         <a class="nav-item nav-link" href="/maps">maps</a>
+        <% if (typeof username !== 'undefined' ){ %>
         <a class="nav-item nav-link" href="/users/logout">Logout</a>
+        <%} %>
       </div>
       </div>
     </div>

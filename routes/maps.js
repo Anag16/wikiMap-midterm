@@ -124,11 +124,12 @@ module.exports = (db) => {
       const templateVars = {};
       templateVars.userMaps = userMaps;
       templateVars.mapOwnerID = req.params.userID; //The owner of the requested maps might not match the logged in user
-      templateVars.userID = req.session.user_id;
+      templateVars.id = req.session.user_id;
+      templateVars.user_id = req.session.user_id;
       templateVars.email = req.session.email;
       templateVars.username = req.session.username;
       templateVars.isMapOwner = false;
-      if(Number(templateVars.mapOwnerID) == templateVars.userID){
+      if(Number(templateVars.mapOwnerID) == templateVars.id){
         templateVars.isMapOwner = true;
       }
       console.log(templateVars);
