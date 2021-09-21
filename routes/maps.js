@@ -124,7 +124,7 @@ module.exports = (db) => {
       const templateVars = {};
       templateVars.userMaps = userMaps;
       templateVars.mapOwnerID = req.params.userID; //The owner of the requested maps might not match the logged in user
-      templateVars.userID = req.session.userID;
+      templateVars.userID = req.session.user_id;
       templateVars.email = req.session.email;
       templateVars.username = req.session.username;
       templateVars.isMapOwner = false;
@@ -171,7 +171,7 @@ module.exports = (db) => {
     };
     updateMap(db, requestedMapId, mapDetails)
       .then(() => {
-        res.redirect(`/users/${userID}`);
+        res.redirect(`/users/profile/${userID}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -190,9 +190,11 @@ module.exports = (db) => {
     } else {
       const mapID = req.params.id;
       const userID = req.session.user_id;
+      console.log(`Deleting map: #${mapID} belonging to user ${userID}`);
       deleteMap(db, mapID)
         .then(dbres => {
-          res.redirect(`/users/${userID}`);
+          console.log('Map deleted');
+          res.redirect(`/users/profile/${userID}`);
         })
         .catch((err) => {
           console.log("query error", err.stack);

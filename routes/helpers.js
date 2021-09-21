@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const { request } = require('express');
 const saltRounds = 10;
-const env = require("dotenv").config({ path: "./.env" });
-const GEOCODING_API_KEY = env.GEOCODING_API_KEY;
-//const requestPromise = require('request-promise-native');
-//const nodeSassMiddleware = require('node-sass-middleware');
+// load .env data into process.env
+require('dotenv').config();
+const GEOCODING_API_KEY = process.env.GEOCODING_API_KEY;
+const requestPromise = require('request-promise-native');
 
 // getUserByUsername helper function to check if username already registered.
 
@@ -57,8 +57,9 @@ const getUserMaps = function(db, user) {
   return db.query(`
   SELECT title, id
   FROM maps
-  WHERE maps.user_id = $1`,[user])
-  .then(res => res.rows);
+  WHERE maps.user_id = $1
+  AND maps.removed_at IS NULL`,
+  [user]).then(res => res.rows);
 };
 
 // getUserFaves helper function to retrieve title of maps favourited by user.

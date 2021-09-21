@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { getUserByUsername, getUserByEmail, addUser } = require('./helpers');
+const { getUserByUsername, getUserByEmail, addUser, getUserById, getUserMaps, getUserFaves, getUserPins} = require('./helpers');
 
 
 module.exports = (db) => {
@@ -57,7 +57,7 @@ module.exports = (db) => {
           .then(existingUser => {
             if (existingUser) {
               console.log('User ID found: ' + existingUser.id);
-              req.session.userID = existingUser.id;
+              req.session.user_id = existingUser.id;
               req.session.email = existingUser.email;
               req.session.username = existingUser.username;
               res.redirect(`/maps/user/${existingUser.id}`);
@@ -113,6 +113,40 @@ module.exports = (db) => {
         }
       });
     }
+  });
+
+  router.get('/profile/:id', (req, res) => {
+    const currentUser = req.session.user_id;
+    const requestedUserId = req.params.id;
+    const templateVars = {};
+    getUserById(db, requestedUserId)
+      .then(user => {
+        templateVars.ownerIsLoggedIn = currentUser === user.id;
+        templateVars.username = user.username;
+        getUserFaves(db, requestedUserId)
+          .then(userFaves => {
+            templateVars.userFaves = userFaves;
+            getUserMaps(db, requestedUserId)
+              .then(userMaps => {
+                templateVars.userMaps = userMaps;
+                getUserPins(db, requestedUserId)
+                  .then(userPins => {
+                    templateVars.userPins = userPins;
+                    if (!req.session.user_id) {
+                      templateVars.user = null;
+                      templateVars.id = null;
+                      templateVars.mapName = null;
+                    } else {
+                      templateVars.user = req.session.username;
+                      templateVars.userID = req.session.user_id;
+                      templateVars.mapName = null;
+                    }
+                    res.render('profiles_show', templateVars);
+                  });
+              });
+          });
+
+      });
   });
 
   return router;

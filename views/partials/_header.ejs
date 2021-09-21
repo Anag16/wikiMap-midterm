@@ -8,6 +8,9 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/users/login">Login</a>
         <a class="nav-item nav-link" href="/users/register">Register</a>
+        <% if (typeof username !== 'undefined'){ %>
+          <a class="nav-item nav-link" href=<%= `/users/profile/${userID}` %>> My Profile</a>
+        <%} %>
         <a class="nav-item nav-link" href="/maps">maps</a>
         <a class="nav-item nav-link" href="/users/logout">Logout</a>
       </div>
