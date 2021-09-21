@@ -2,35 +2,22 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
-  <title>Home Page</title>
-=======
   <title>All Maps</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
->>>>>>> master
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-<<<<<<< HEAD
-=======
 
   <!-- Leaflet CSS -->
 
->>>>>>> master
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin="" />
 
-<<<<<<< HEAD
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/maps.js"></script>
-
-=======
->>>>>>> master
   <!-- Make sure you put this AFTER Leaflet's CSS -->
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
@@ -38,44 +25,24 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <%- include('partials/_header') %>
-
-    <main>
-        <div id="WelcomeUser">
-        <% if(isMapOwner) { %>
-            <p> Welcome, <%= username %> ! </p>
-            <p> Your maps: </p>
-        <% } else { %>
-            <p> Maps on this list: </p>
-        <% } %>
-        </div>
-        <% for (let map of userMaps) { %>
-            <p><%= map.title %></p>
-            <p><%= map.country %></p>
-            <p><%= map.city %></p>
-        <% } %>
-    </main>
-=======
   <%- include('partials/_header') %>
     <main class="container">
-        <% if(isMapOwner) { %>
-            <h2> Welcome, <%= username %> ! </h2>
-            <h2> Your maps: </h2>
-        <% } else { %>
-            <h2> Maps on this list: </h2>
-        <% } %>
+      <h2 class="title">All Maps</h2>
       <hr>
       <table class="table table-borderless table-hover">
         <thead>
           <th scope="col">Title</th>
+          <th scope="col">Created By</th>
           <th scope="col"></th>
         </thead>
         <tbody>
-          <% for (let map of userMaps) { %>
+          <% for (let map of allMaps) { %>
             <tr>
               <td class="align-middle">
                 <%= map.title %>
+              </td>
+              <td class="align-middle">
+                <a href=<%=`/users/${map.user_id}` %>><%= map.username %></a>
               </td>
               <td>
                 <a class="btn btn-primary my-2 my-sm-0" href=<%=`/maps/${map.id}` %>>Visit</a>
@@ -99,7 +66,6 @@
         <script src="https://kit.fontawesome.com/5075b93769.js" crossorigin="anonymous"></script>
         <!-- JS Scripts -->
         <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
->>>>>>> master
 </body>
 
 </html>
