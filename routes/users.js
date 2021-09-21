@@ -59,7 +59,7 @@ module.exports = (db) => {
               console.log('User ID found: ' + existingUser.id);
               req.session.user_id = existingUser.id;
               req.session.email = existingUser.email;
-              req.session.username = existingUser.username; 
+              req.session.username = existingUser.username;
               res.redirect(`/maps/user/${existingUser.id}`);
             } else {
               console.log('User is not registered');
@@ -151,3 +151,4 @@ module.exports = (db) => {
 
   return router;
 };
+
