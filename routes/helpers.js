@@ -57,8 +57,9 @@ const getUserMaps = function(db, user) {
   return db.query(`
   SELECT title, id
   FROM maps
-  WHERE maps.user_id = $1`,[user])
-  .then(res => res.rows);
+  WHERE maps.user_id = $1
+  AND maps.removed_at IS NULL`,
+  [user]).then(res => res.rows);
 };
 
 // getUserFaves helper function to retrieve title of maps favourited by user.

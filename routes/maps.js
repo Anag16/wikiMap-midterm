@@ -190,9 +190,11 @@ module.exports = (db) => {
     } else {
       const mapID = req.params.id;
       const userID = req.session.user_id;
+      console.log(`Deleting map: #${mapID} belonging to user ${userID}`);
       deleteMap(db, mapID)
         .then(dbres => {
-          res.redirect(`/users/${userID}`);
+          console.log('Map deleted');
+          res.redirect(`/users/profile/${userID}`);
         })
         .catch((err) => {
           console.log("query error", err.stack);
