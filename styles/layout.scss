@@ -1,23 +1,74 @@
-// See: https://sass-lang.com/
-
 body {
   background-color: #EEE;
+<<<<<<< HEAD
   // background-image: url(Map.png);
-
-  h1 {
-    color: #244751;
-  }
+=======
 }
 
-#mapid{
+body h1 {
+  color: #244751;
+}
+
+.navbar {
+  background-color: #363636 !important;
+}
+
+.navbar-nav {
+  width: 100%;
+  gap: 1.5em;
+  padding-right: 2em;
+}
+
+.nav-item {
+  color: #fe7ab6 !important;
+  font-size: 2em;
+}
+
+.nav-item:hover {
+  color: #f72785 !important;
+}
+>>>>>>> 7935915468e1c0015af326913d634aeb57ab9736
+
+.logo_IMG {
+  width: 15em;
+}
+
+#mapid {
   height: 100vh;
 }
 
-// #backgroundimage {
-//   background-image: url("/img/GoogleMap.jpeg");
-//   width: 100vw;
-//   height: 100vh;
-//   background-size: 100% 100%;
-//   background-repeat: no-repeat;
-//   position: relative;
-// }
+.profile_container {
+  display: grid;
+  margin-top: 2em;
+  /* padding-left: 20%;
+  padding-right: 20%; */
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); */
+}
+
+.profile_section {
+  margin: 1em;
+  padding: 1em;
+  background-color: #cacaca;
+}
+
+.img_div {
+  width: 100%;
+  margin-top: 2em;
+}
+
+.maps_container, .edit_container {
+  margin: 1em;
+  padding: 1em;
+  background-color: #cacaca;
+}
+
+.btn-sm{
+  margin: 0.25em;
+}
+.notice_container{
+  margin: 1em;
+  padding: 1em;
+  background-color: #cacaca;
+}
+>>>>>>> 7935915468e1c0015af326913d634aeb57ab9736

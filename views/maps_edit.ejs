@@ -4,12 +4,7 @@
   <head>
     <title>Edit Map</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <%- include('partials/_externalCSS') %>
 
     <!-- Leaflet CSS -->
 
@@ -25,6 +20,7 @@
   <%- include('partials/_header') %>
   <main class="container">
   <% if (ownerIsLoggedIn) { %>
+    <div class="edit_container">
     <h2>You are editing: <%= mapEdit %></h2><hr>
       <form class="form-inline" method="POST" action=<%=`/maps/${mapID}`%> >
         <div class="form-group mb-2">
@@ -35,6 +31,7 @@
         </div>
       <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </form>
+    </div>
   <% } else { %>
     <h2>401 - Unauthorized</h2>
     <p>You must be logged in and own this map to edit it!</p>

@@ -1,6 +1,6 @@
 $(() => {
     const map = L.map("mapid").setView([mapLat, mapLng], 13);
-  
+
     // Add tileLayer to our map
     L.tileLayer(
       'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=tQiLWYMKVirRPxy8yyZn',
@@ -10,17 +10,17 @@ $(() => {
         <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>`,
       }
     ).addTo(map);
-  
+
     // Render pins on the map from db
     const addPinsFromDb = (obj) => {
-  
+
       // console.log(obj);
       // console.log(obj.map_owner);
-  
+
       const pinOwner = obj.user_id;
       const logUser = obj.logUser;
       const mapOwner = obj.map_owner;
-  
+
       if (pinOwner === logUser || mapOwner === logUser) {
         const marker = L.marker([obj.latitude, obj.longitude]).addTo(map)
         .bindPopup(`
@@ -54,29 +54,29 @@ $(() => {
         <img src="${obj.image_url}" alt="Pin image" class="img-thumbnail showImg">
         `);
       }
-  
+
     };
-  
+
     // AJAX
     const pageURL = $(location).attr("href");
     const splitPageURL = pageURL.split('/');
     const mapID = splitPageURL[splitPageURL.length - 1];
-  
+
     $.get(`/pins/${mapID}`, function(result) {
       result.pins.forEach((pinObj) => addPinsFromDb(pinObj));
     });
-  
+
     // Drop a new pin and submit a form > POST /pins
     function dropNewPin(e) {
       console.log("e from dropNewPin", e);
       console.log("e.latlng from dropNewPin", e.latlng);
-  
+
       const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {
         title: "appears on hover",
         draggable: true,
         riseOnHover: true,
       }).addTo(map);
-  
+
       // Send POST to pins.js
       newMarker
         .bindPopup(
@@ -100,6 +100,6 @@ $(() => {
         )
         .openPopup();
     }
-  
+
     map.on("click", dropNewPin);
   });

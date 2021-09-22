@@ -1,21 +1,21 @@
 <header >
-  <nav class="navbar navbar-expand-md navbar-dark bg-success" style="background-color: rgb(243, 117, 138) !important;">
-    <a class="navbar-brand" href="/">WikiMap</a>
+  <nav class="navbar navbar-expand-md navbar-dark bg-success">
+    <a class="navbar-brand" href="/"><img class="logo_IMG" src="/img/LOGO.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/maps">Latest Maps</a>
         <% if (typeof username === 'undefined') {%>
-        <a class="nav-item nav-link" href="/users/login">Login</a>
+        <a class="nav-item nav-link ml-auto" href="/users/login">Login</a>
         <a class="nav-item nav-link" href="/users/register">Register</a>
         <% } %>
         <% if (typeof username !== 'undefined' ){ %>
           <a class="nav-item nav-link" href=<%= `/users/profile/${user_id}` %>> My Profile</a>
         <%} %>
-        <a class="nav-item nav-link" href="/maps">maps</a>
         <% if (typeof username !== 'undefined' ){ %>
-        <a class="nav-item nav-link" href="/users/logout">Logout</a>
+        <a class="nav-item nav-link ml-auto" href="/users/logout">Logout</a>
         <%} %>
       </div>
       </div>
