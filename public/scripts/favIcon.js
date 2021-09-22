@@ -16,7 +16,7 @@ $(document).ready(() => {
     const pageURL = $(location).attr("href");
     const splitPageURL = pageURL.split('/');
     const mapID = splitPageURL[splitPageURL.length - 1];
-    // console.log(mapID);
+    //console.log(mapID);
 
     $.post(`/favourites/${mapID}/delete`, function() {
       $("i").toggle();
