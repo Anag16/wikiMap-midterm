@@ -149,6 +149,7 @@ module.exports = (db) => {
                       templateVars.mapName = null;
                     } else {
                       templateVars.user = req.session.username;
+                      templateVars.username = req.session.username;
                       templateVars.user_id = req.session.user_id;
                       templateVars.mapName = null;
                     }
