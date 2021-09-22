@@ -11,7 +11,6 @@ module.exports = (db) => {
     //   console.log(result[0]);
     //   return result[0];
     // });
-    console.log(req.session);
     const templateVars = {};
     if (!req.session) {
       templateVars.user = null;
@@ -19,6 +18,8 @@ module.exports = (db) => {
     } else {
       templateVars.user = req.session.username;
       templateVars.id = req.session.user_id;
+      templateVars.username = req.session.username;
+      templateVars.user_id = req.session.user_id;
     }
     getAllMaps(db)
       .then(allMaps => {
@@ -56,6 +57,8 @@ module.exports = (db) => {
         } else {
           templateVars.user = req.session.username;
           templateVars.id = req.session.user_id;
+          templateVars.username = req.session.username;
+          templateVars.user_id = req.session.user_id;
         }
         templateVars.mapName = requestedMap.title;
         res.render('maps_show', templateVars);
@@ -79,6 +82,8 @@ module.exports = (db) => {
     } else {
       templateVars.user = req.session.username;
       templateVars.id = req.session.user_id;
+      templateVars.username = req.session.username;
+      templateVars.user_id = req.session.user_id;
       const values = req.body;
       const { title, country, city } = values;
       getCoordinates(country, city)
@@ -157,6 +162,8 @@ module.exports = (db) => {
           templateVars.mapID = req.params.id;
           templateVars.user = req.session.username;
           templateVars.id = req.session.user_id;
+          templateVars.username = req.session.username;
+          templateVars.user_id = req.session.user_id;
           res.render('maps_edit', templateVars);
         });
     }
@@ -221,6 +228,8 @@ module.exports = (db) => {
     } else {
       templateVars.user = req.session.username;
       templateVars.id = req.session.user_id;
+      templateVars.username = req.session.username;
+      templateVars.user_id = req.session.user_id;
       let queryString = `
         INSERT INTO pins (title, description, image_url, latitude, longitude, created_at, map_id, user_id)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;
