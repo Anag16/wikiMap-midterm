@@ -20,6 +20,7 @@
   <%- include('partials/_header') %>
   <main class="container">
   <% if (ownerIsLoggedIn) { %>
+    <div class="edit_container">
     <h2>You are editing: <%= mapEdit %></h2><hr>
       <form class="form-inline" method="POST" action=<%=`/maps/${mapID}`%> >
         <div class="form-group mb-2">
@@ -30,6 +31,7 @@
         </div>
       <button type="submit" class="btn btn-primary mb-2">Submit</button>
       </form>
+    </div>
   <% } else { %>
     <h2>401 - Unauthorized</h2>
     <p>You must be logged in and own this map to edit it!</p>

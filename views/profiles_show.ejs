@@ -18,42 +18,45 @@
 
 <body>
   <%- include('partials/_header') %>
-  <main class="container">
-    <h2 class="title"><%= (ownerIsLoggedIn) ? 'My Maps' : username + "'s Maps" %></h2><hr>
-    <table class="table table-borderless table-hover">
-      <thead>
-        <th scope="col" class="col-4">Title</th>
-        <th scope="col" class="col-4"></th>
-        <th scope="col" class="col-4"></th>
-      </thead>
-      <tbody>
-        <% for (let userMap of userMaps) { %>
-          <tr>
-            <td class="align-middle">
-              <%= userMap.title %>
-            </td>
-            <td>
-              <a class="btn btn-primary my-2 my-sm-0" href=<%= `/maps/${userMap.id}` %>>Visit</a>
-            </td>
-            <% if (ownerIsLoggedIn) { %>
-              <td>
-                <a href=<%=`/maps/${userMap.id}/edit`%>>
-                  <button type="button" class="btn btn-warning my-2 my-sm-0">Edit</button>
-                </a>
+  <main class="profile_container">
+    <div class="profile_section" id="profile_maps">
+      <h2 class="title"><%= (ownerIsLoggedIn) ? 'My Maps' : mapOwnerUsername + "'s Maps" %></h2><hr>
+      <table class="table table-borderless table-hover">
+        <thead>
+          <th scope="col" class="col-4">Title</th>
+          <th scope="col" class="col-4"></th>
+          <th scope="col" class="col-4"></th>
+        </thead>
+        <tbody>
+          <% for (let userMap of userMaps) { %>
+            <tr>
+              <td class="align-middle">
+                <%= userMap.title %>
               </td>
+              <td>
+                <a class="btn btn-primary my-2 my-sm-0" href=<%= `/maps/${userMap.id}` %>>Visit</a>
+              </td>
+              <% if (ownerIsLoggedIn) { %>
+                <td>
+                  <a href=<%=`/maps/${userMap.id}/edit`%>>
+                    <button type="button" class="btn btn-warning my-2 my-sm-0">Edit</button>
+                  </a>
+                </td>
+              <% } %>
+              <% if (ownerIsLoggedIn) { %>
+              <td>
+                <form method="POST" action=<%=`/maps/${userMap.id}/delete`%>>
+                  <button type="submit" class="btn btn-danger my-2 my-sm-0">Delete</button>
+                </form>
+              </td>
+              <% } %>
+            </tr>
             <% } %>
-            <% if (ownerIsLoggedIn) { %>
-            <td>
-              <form method="POST" action=<%=`/maps/${userMap.id}/delete`%>>
-                <button type="submit" class="btn btn-danger my-2 my-sm-0">Delete</button>
-              </form>
-            </td>
-            <% } %>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-      <h2 class="title"><%= (ownerIsLoggedIn) ? 'My Favourites' : username + "'s Favourites" %></h2><hr>
+          </tbody>
+        </table>
+    </div>
+    <div class="profile_section" id="profile_favs">
+      <h2 class="title"><%= (ownerIsLoggedIn) ? 'My Favourites' : mapOwnerUsername + "'s Favourites" %></h2><hr>
       <table class="table table-borderless table-hover">
         <thead>
           <th scope="col" class="col-6">Title</th>
@@ -72,7 +75,9 @@
             <% } %>
           </tbody>
         </table>
-    <h2 class="title"><%= (ownerIsLoggedIn) ? 'My Contributions' : username + "'s Contributions" %></h2><hr>
+    </div>
+    <div class="profile_section" id="profile_contributions">
+      <h2 class="title"><%= (ownerIsLoggedIn) ? 'My Contributions' : mapOwnerUsername+ "'s Contributions" %></h2><hr>
       <table class="table table-borderless table-hover">
         <thead>
           <th scope="col" class="col-6">Title</th>
@@ -91,25 +96,31 @@
           <% } %>
         </tbody>
       </table>
+    </div>
     <% if (ownerIsLoggedIn) { %>
-      <h2>Create New Map</h2><hr>
-        <form class="form" action="/maps" method="POST">
-          <div class="form-group mb-2">
-            <label for="title">Title:</label>
-            <input class="form-control" type="text" name="title" placeholder="Enter map title">
-          </div>
-          <div class="form-group mb-2 ">
-            <label for="country">Country:</label>
-            <input class="form-control" type="text" name="country" placeholder="Enter country">
-          </div>
-          <div class="form-group mb-2">
-            <label for="city">City:</label>
-            <input class="form-control" type="text" name="city" placeholder="Enter city">
-          </div>
-          <button type="submit" class="btn btn-primary">Create Map</button>
-        </form>
-      <% } %>
-      </main>
+    <div class="profile_section" id="profile_new">
+        <h2>Create New Map</h2><hr>
+          <form class="form" action="/maps" method="POST">
+            <div class="form-group mb-2">
+              <label for="title">Title:</label>
+              <input class="form-control" type="text" name="title" placeholder="Enter map title">
+            </div>
+            <div class="form-group mb-2 ">
+              <label for="country">Country:</label>
+              <input class="form-control" type="text" name="country" placeholder="Enter country">
+            </div>
+            <div class="form-group mb-2">
+              <label for="city">City:</label>
+              <input class="form-control" type="text" name="city" placeholder="Enter city">
+            </div>
+            <button type="submit" class="btn btn-primary">Create Map</button>
+          </form>
+    </div>
+    <% } %>
+    </main>
+    <div class="img_div">
+      <img class="decorative_image" src="/img/trail.png">
+    </div>
       <!-- <%- include('partials/_footer') %> -->
 
   <!-- Framework scripts -->

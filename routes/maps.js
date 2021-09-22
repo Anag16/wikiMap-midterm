@@ -45,7 +45,7 @@ module.exports = (db) => {
         templateVars.id = req.session.user_id;
         templateVars.mapName = null;
       }
-      res.render('404', templateVars);
+      res.redirect('/maps');
     }
     const requestedMapId = mapID;
     getMapById(db, requestedMapId)
@@ -66,7 +66,7 @@ module.exports = (db) => {
       .catch((err) => {
         res.statusCode = 404;
         templateVars.mapName = null;
-        res.render('404', templateVars);
+        res.redirect('/maps');
       });
   });
 

@@ -21,12 +21,13 @@
 <body>
   <%- include('partials/_header') %>
     <main class="container">
+      <div class="maps_container">
       <h2 class="title">All Maps</h2>
       <hr>
       <table class="table table-borderless table-hover">
         <thead>
           <th scope="col">Title</th>
-          <th scope="col">Created By</th>
+          <% if (typeof username !== 'undefined' ){ %> <th scope="col">Created By</th> <% } %>
           <th scope="col"></th>
         </thead>
         <tbody>
@@ -35,9 +36,11 @@
               <td class="align-middle">
                 <%= map.title %>
               </td>
+              <% if (typeof username !== 'undefined' ){ %>
               <td class="align-middle">
                 <a href=<%=`/users/profile/${map.user_id}` %>><%= map.username %></a>
               </td>
+              <% } %>
               <td>
                 <a class="btn btn-primary my-2 my-sm-0" href=<%=`/maps/${map.id}` %>>Visit</a>
               </td>
@@ -45,6 +48,8 @@
             <% } %>
         </tbody>
       </table>
+    </div>
+      </main>
       <%- include('partials/_footer') %>
 
         <!-- Framework scripts -->
