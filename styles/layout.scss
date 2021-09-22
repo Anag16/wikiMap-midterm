@@ -6,6 +6,10 @@ body h1 {
   color: #244751;
 }
 
+header{
+  height: 10em;
+}
+
 .navbar {
   background-color: #363636 !important;
 }
@@ -59,11 +63,35 @@ body h1 {
   background-color: #cacaca;
 }
 
-.btn-sm{
+.btn-sm {
   margin: 0.25em;
 }
-.notice_container{
+
+.notice_container {
   margin: 1em;
   padding: 1em;
   background-color: #cacaca;
 }
+
+.hero_container{
+  background-image: url('/img/hero.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin-top: -10em;
+}
+
+.landing header {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.hero_container{
+  display: grid;
+  place-items: center;
+}
+
+.hero_text h1{
+  color: white;
+  font-size: 60px;
+}
+/*# sourceMappingURL=layout.css.map */
