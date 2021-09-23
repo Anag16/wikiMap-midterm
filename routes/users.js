@@ -60,7 +60,7 @@ module.exports = (db) => {
               req.session.user_id = existingUser.id;
               req.session.email = existingUser.email;
               req.session.username = existingUser.username;
-              res.redirect(`/maps/user/${existingUser.id}`);
+              res.redirect(`/users/profile/${existingUser.id}`);
             } else {
               console.log('User is not registered');
               res.redirect('/users/login');
@@ -71,8 +71,8 @@ module.exports = (db) => {
 
   // GET /register if no user is logged in. If user is logged in, redirect to /maps.
   router.get('/register', (req, res) => {
-    const userID = req.session && req.session.user_id;
-    if (!userID) {
+    const user_id = req.session && req.session.user_id;
+    if (!user_id) {
       res.render('register');
     } else {
       res.redirect('/maps');
@@ -107,7 +107,18 @@ module.exports = (db) => {
               res.render('400', templateVars);
             } else {
               addUser(db, user);
-              res.redirect('/maps');
+              getUserByEmail(db, user.email)
+              .then(existingUser => {
+                if (existingUser) {
+                  req.session.user_id = existingUser.id;
+                  req.session.email = existingUser.email;
+                  req.session.username = existingUser.username;
+                  res.redirect(`/users/profile/${existingUser.id}`);
+                } else {
+                  console.log('User is not registered');
+                  res.redirect('/users/login');
+                }
+              });
             }
           });
         }
@@ -138,7 +149,9 @@ module.exports = (db) => {
                       templateVars.mapName = null;
                     } else {
                       templateVars.user = req.session.username;
-                      templateVars.userID = req.session.user_id;
+                      templateVars.username = req.session.username;
+                      templateVars.mapOwnerUsername = user.username;
+                      templateVars.user_id = req.session.user_id;
                       templateVars.mapName = null;
                     }
                     res.render('profiles_show', templateVars);

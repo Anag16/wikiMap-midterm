@@ -19,7 +19,7 @@ $(document).ready(() => {
     // Dividing that using "/" splits it in two elements: domain.com, maps AND MAP_ID;
     // The last element will be the map id.
     const mapID = splitPageURL[splitPageURL.length - 1];
-    //console.log(mapID);
+    // console.log(mapID);
 
     $.post(`/favourites/${mapID}/delete`, function() {
         // Using SweetAlert library to show messages to users.

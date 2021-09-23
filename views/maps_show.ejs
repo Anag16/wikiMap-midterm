@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Wiki Map - Map Navigation</title>
+  <title> <%= requestedMap.title %> | Wiki Map </title>
 
   <%- include('partials/_externalCSS') %>
 
@@ -22,8 +22,10 @@
 
   <%- include('partials/_header') %>
 
-  <i id="fav-inactive" class="far fa-heart fa-2x"></i>
-  <i id="fav-active" class="fas fa-heart fa-2x"></i>
+  <% if (typeof username !== 'undefined' ){ %>
+    <i id="fav-inactive" class="far fa-heart fa-2x"></i>
+    <i id="fav-active" class="fas fa-heart fa-2x"></i>
+  <%} %>
 
 
     <div id="mapid"></div>
