@@ -6,8 +6,8 @@ body h1 {
   color: #244751;
 }
 
-header{
-  height: 10em;
+header {
+
 }
 
 .navbar {
@@ -21,7 +21,7 @@ header{
 }
 
 .nav-item {
-  color: #fe7ab6 !important;
+  color: #999999 !important;
   font-size: 2em;
 }
 
@@ -73,8 +73,8 @@ header{
   background-color: #cacaca;
 }
 
-.hero_container{
-  background-image: url('/img/hero.jpg');
+.hero_container {
+  background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), url("/img/hero.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -85,13 +85,46 @@ header{
   background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
-.hero_container{
+.hero_container {
   display: grid;
   place-items: center;
 }
 
-.hero_text h1{
+.hero_text {
+  place-items: center;
+  display: grid;
+}
+
+.hero_text h1 {
   color: white;
   font-size: 60px;
 }
+
+.hero_text a {
+  background-color: #d825ab;
+  border-style: none;
+  width: 50%;
+  justify-self: center;
+  font-size: 2rem;
+  border-radius: 5%;
+}
+
+.map-panel i{
+  position: absolute;
+  top: 11rem;
+  right: 1rem;
+  z-index: 1000;
+  border: none;
+  outline: none;
+  background-color:#f72785;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 3em;
+}
+
+#fav-active {
+  display: none;
+}
+
 /*# sourceMappingURL=layout.css.map */

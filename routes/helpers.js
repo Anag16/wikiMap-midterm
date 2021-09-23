@@ -64,7 +64,7 @@ const getUserMaps = function(db, user) {
 
 // getUserFaves helper function to retrieve title of maps favourited by user.
 
-const getUserFaves = function(db, user) {
+const getFavourites = function(db, user) {
   return db.query(`
   SELECT maps.title, maps.id
   FROM user_favourites
@@ -177,4 +177,4 @@ const updatePin = function(db, pinID, pinDetails) {
     .then(res => res.rows);
 };
 
-module.exports = { getUserByUsername, getUserByEmail, getUserById, addUser, getUserMaps, getUserFaves, getUserPins, getMapById, getPinsForMapById, getCoordinates, createNewMap, getAllMaps, updateMap, deleteMap, updatePin };
+module.exports = { getUserByUsername, getUserByEmail, getUserById, addUser, getUserMaps, getFavourites, getUserPins, getMapById, getPinsForMapById, getCoordinates, createNewMap, getAllMaps, updateMap, deleteMap, updatePin };

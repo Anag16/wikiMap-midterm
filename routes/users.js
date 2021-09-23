@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { getUserByUsername, getUserByEmail, addUser, getUserById, getUserMaps, getUserFaves, getUserPins} = require('./helpers');
+const { getUserByUsername, getUserByEmail, addUser, getUserById, getUserMaps, getFavourites, getUserPins} = require('./helpers');
 
 
 module.exports = (db) => {
@@ -123,7 +123,7 @@ module.exports = (db) => {
       .then(user => {
         templateVars.ownerIsLoggedIn = currentUser === user.id;
         templateVars.username = user.username;
-        getUserFaves(db, requestedUserId)
+        getFavourites(db, requestedUserId)
           .then(userFaves => {
             templateVars.userFaves = userFaves;
             getUserMaps(db, requestedUserId)
