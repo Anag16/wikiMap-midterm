@@ -55,8 +55,6 @@ module.exports = (db) => {
 
    // Remove pins from maps.js
    router.post("/:id/delete", (req, res) => {
-    console.log("id from maps.js delete:", req.params.id);
-    console.log(req.body);
     const mapID = req.body.map_id;
     const templateVars = {};
     if (!req.session.user_id) {

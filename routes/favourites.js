@@ -1,5 +1,6 @@
 const express = require('express');
 const router  = express.Router();
+const { getFavourites } = require("./helpers");
 
 module.exports = (db) => {
   router.get('/:id', (req, res) => {
@@ -13,8 +14,6 @@ module.exports = (db) => {
 
     db.query(queryString, values)
       .then(data => {
-        // console.log(data.rows)
-        // console.log(data.rows.length);
         if (data.rows.length === 0) {
           res.send(false);
         } else  {
@@ -27,21 +26,36 @@ module.exports = (db) => {
   router.post('/:id', (req, res) => {
     const userID = req.session.user_id;
     const mapID = parseInt(req.params.id);
-    console.log(userID, mapID);
-    let values = [userID, mapID];
-    let queryString = `
-      INSERT INTO user_favourites (created_at, user_id, map_id)
-      VALUES (now()::date, $1, $2)`;
+    getFavourites(db, userID) //Avoid adding a fav twice to the database
+      .then(favs => { //Returned favs for each user
+        let found = false; //found boolean.
+        for(let fav of favs){
+          if (fav.id == mapID){
+            console.log('Oops, that fav is already on your list');
+            found = true; //If a match is found, set found to TRUE
+          }
+        }
+        if (!found){ //If NOT FOUND, then insert to database.
+          let values = [userID, mapID];
+          let queryString = `
+            INSERT INTO user_favourites (created_at, user_id, map_id)
+            VALUES (now()::date, $1, $2)`;
 
-    db.query(queryString, values)
-      .then(res => res.rows)
-      .catch((err) => console.log("query error", err.stack));
-    res.send();
+          db.query(queryString, values)
+            .then(res => res.rows)
+            .catch((err) => console.log("query error", err.stack));
+          res.send();
+        }
+        else{
+          res.send(); //If FOUND, do nothing.
+          // TODO: SEND MESSSAGE OF FAV ALREADY ADDED BEFORE
+        }
+      });
+
   });
   router.post('/:id/delete', (req, res) => {
     const userID = req.session.user_id;
     const mapID = parseInt(req.params.id);
-    console.log(userID, mapID);
     let values = [userID, mapID];
     let queryString = `
       UPDATE user_favourites

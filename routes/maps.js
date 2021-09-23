@@ -1,6 +1,6 @@
 const express = require("express");
 const { getAllPinsFromDb } = require("../database");
-const { getMapById, getAllMaps, getUserMaps, getCoordinates, createNewMap, updateMap, deleteMap } = require("./helpers");
+const { getMapById, getAllMaps, getUserMaps, getCoordinates, createNewMap, updateMap, deleteMap, getFavourites } = require("./helpers");
 const router = express.Router();
 
 // how can i use getAllPinsFromDb from the database.js inside router.get

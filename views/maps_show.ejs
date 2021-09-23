@@ -22,8 +22,11 @@
 
   <%- include('partials/_header') %>
 
-    <div id="mapid"></div>
+  <i id="fav-inactive" class="far fa-heart fa-2x"></i>
+  <i id="fav-active" class="fas fa-heart fa-2x"></i>
 
+
+    <div id="mapid"></div>
 
     <%- include('partials/_footer') %>
 
@@ -46,6 +49,7 @@
       <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
       <script type="text/javascript" src="/scripts/showMap.js"></script>
       <script type="text/javascript" src="/scripts/favIcon.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

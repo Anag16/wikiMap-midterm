@@ -2,21 +2,20 @@ $(() => {
     const map = L.map("mapid").setView([mapLat, mapLng], 13);
 
     // Add tileLayer to our map
+    // Get APIKEY at https://cloud.maptiler.com/account/keys/
     L.tileLayer(
-      'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=tQiLWYMKVirRPxy8yyZn',
+      'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=lQcSFEMX5zyRGX2nNjuw ',
       {
-        attribution: `
-        <a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>
-        <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>`,
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 1,
+        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+        crossOrigin: true
       }
     ).addTo(map);
 
     // Render pins on the map from db
     const addPinsFromDb = (obj) => {
-
-      // console.log(obj);
-      // console.log(obj.map_owner);
-
       const pinOwner = obj.user_id;
       const logUser = obj.logUser;
       const mapOwner = obj.map_owner;
@@ -68,9 +67,6 @@ $(() => {
 
     // Drop a new pin and submit a form > POST /pins
     function dropNewPin(e) {
-      console.log("e from dropNewPin", e);
-      console.log("e.latlng from dropNewPin", e.latlng);
-
       const newMarker = L.marker([e.latlng.lat, e.latlng.lng], {
         title: "appears on hover",
         draggable: true,
