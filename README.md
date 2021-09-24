@@ -12,6 +12,16 @@ The following steps are only for _one_ of the group members to perform.
 5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
 
 
+
+## Screenshots
+
+- Landing Page
+!["Screenshot of Landing Page"](https://raw.githubusercontent.com/sowjanyamaisagoni/wikiMap-midterm/master/public/img/Landing_page.png)
+
+- Features
+!["Screenshot of features"](https://raw.githubusercontent.com/sowjanyamaisagoni/wikiMap-midterm/master/public/img/Wiki_map.gif)
+
+
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
@@ -20,10 +30,10 @@ The following steps are only for _one_ of the group members to perform.
   - password: `labber` 
   - database: `midterm`
 3. Install dependencies: `npm i`
-4. Fix to binaries for sass: `npm rebuild node-sass`
+4. Update dependencies: `npm update`
 5. Reset database: `npm run db:reset`
   - Check the db folder to see what gets created and seeded in the SDB
-7. Run the server: `npm run local`
+7. Run the server: `npm run local` or `npm start`
   - Note: nodemon is used, so you should not have to restart your server
 8. Visit `http://localhost:8080/`
 
@@ -38,6 +48,7 @@ The following steps are only for _one_ of the group members to perform.
 
 ## Dependencies
 
-- Node 10.x or above
+- Node 15.x or above
 - NPM 5.x or above
 - PG 6.x
+- Leaflet 1.7.x
